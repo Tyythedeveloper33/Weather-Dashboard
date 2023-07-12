@@ -7,6 +7,14 @@ const thirdDayAfterCurrent = dayjs().add(3, 'day').format('M/D/YY');
 const forthDayAfterCurrent = dayjs().add(4, 'day').format('M/D/YY');
 const fifthDayAfterCurrent = dayjs().add(5, 'day').format('M/D/YY');
 
+// Lets first check if there is a localStorage KEY
+var savedData = localStorage.getItem('searchHistory');
+if(!savedData) {
+    // Initalize a search History KEY:VALUE --> localStorage
+    localStorage.setItem('searchHistory', '[]' )
+
+}
+var searchHistory = document.getElementById('history');
 
 // geocoding api
 // create add event listener
@@ -15,6 +23,20 @@ searchBtn.addEventListener('click', searchCity);
 // searchcity function
 function searchCity() {
     var cityName = document.querySelector('.search-input').value;
+    // add our new city to our localStorage
+    var savedCities = localStorage.getItem('searchHistory');
+    console.log("Saved Data: ", savedCities);  // --> "[]"
+    console.log("Saved Type: ", typeof savedCities);  // --> string type
+
+    // we need to convert the data into something more useful
+    var parsedData = JSON.parse(savedCities);  // --> []  | JS object
+    parsedData.push(cityName);  // --> ["syracuse"]
+
+    localStorage.setItem('searchHistory', JSON.stringify(parsedData));
+
+
+
+
     // statecode & countryCode is replaced with the appropriate state code & countryCode  if applied
     var stateCode = '';
     var countryCode = '';
@@ -48,7 +70,7 @@ function searchCity() {
         console.log("Current-Day-humidity", currentWeatherData.main.humidity)
         console.log("Current-Day-wind", currentWeatherData.wind.speed)
         console.log("_____________________________________________________________")
- 
+        
          })
         
           //weather api
@@ -61,10 +83,7 @@ function searchCity() {
          fetch(weatherUrl)
          .then(response => response.json())  
         .then(weatherData => {
-             // handle weather api response and update content container
-        var content1 = document.getElementById('content-container1');
-        var content2 = document.getElementById('content-container2');
-       
+            
         
         // update content with weather data 
         console.log(weatherData);
@@ -154,6 +173,8 @@ function searchCity() {
          var addedWind4 = weatherData.list[32].wind.speed + weatherData.list[33].wind.speed + weatherData.list[34].wind.speed + weatherData.list[35].wind.speed + weatherData.list[36].wind.speed + weatherData.list[37].wind.speed + weatherData.list[38].wind.speed + weatherData.list[39].wind.speed
          var averagewind4 = ( addedWind4/8);
           console.log(" Day-6 wind(MPH)" , averagewind4);
+
+          showHistory();
         })
         .catch(error => {
             console.error("Error:", error);
@@ -171,40 +192,61 @@ function searchCity() {
        
   }
 
- // var cityName = document.querySelector('.search-input').value;
-        // statecode & countryCode is replaced with the appropriate state code & countryCode  if applied
- // var stateCode = '';
- // var countryCode = '';
- // var limit = 1;
- // var apiKey = '7294cd9f83d12475284a0873d57ce046'
-        // geocoding url
-  //var geocodingUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName},${stateCode},${countryCode}&limit=${limit}&appid=${apiKey}`;
+  function showHistory() {
 
+    // We should CLEAR the existing data in our HISTORY CONTAINER
 
-          // make api request
-    // fetch(geocodingUrl)
-    // .then(response => response.json())
-    // .then(data => {
-          // update content with api data
-//if (data.length > 0) {
-  //  var cityData = data[0];
-   // var Latitude = cityData.lat;
-    //var longitude = cityData.lon;
- // make first forecast variable into a variable the contains first 7 json object temperatures to be able to get an average per day
-    // var currentWeatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${Latitude}&lon=${longitude}&units=imperial&appid=${apiKey}`
-    //   
-     // fetch(currentWeatherUrl)
-      //.then(response => response.json())  
-      //.then(weatherData => {
+    // 1) we should grab the CURRENT history data
+    var history = localStorage.getItem('searchHistory');
 
+    // 2) convert it to should useful  --> JS ARRAY []
+    var historyArr = JSON.parse(history);
 
+    // 3) Loop thorugh the array 
+    for(let i = 0; i < historyArr.length; i++) {
+        // we should dynamically create a new HTML element (BUTTON)
+        let newButton = document.createElement("button");
+        // we need to add the TEXT CONTENT to the element
+        newButton.textContent = historyArr[i]
+        // (maybe) we need id or class attribute added 
+
+        // We want to listen for a CLICK event (addEventlistener -> each button))
         
-       // var content1 = document.getElementById('content-container1');
-       // var content2 = document.getElementById('content-container2');
-       
+        // 4) we APPEND or add it to the DOM
+        searchHistory.append(newButton);
         
-               // update content with weather data 
-       // console.log( "current day: " , weatherData);
-      //})
-   // }
-    //})
+    }
+
+}
+
+// How do we get data from a HISOtY BUTTON(?)
+// We want to listen for a CLICK event (addEventlistener ->  the history container)
+// Find out the EVENT TARGET taht triggered the event
+// capture the event target value --> send it to the API function 
+
+
+ //function appendData() {
+ // handle weather api response and update content container
+ 
+  
+ //if(content1.innerHTML !== ''){
+  //  content1.innerHTML = '';
+  //  content2.innerHTML = '';
+ //} else {
+  //  if(content1.innerHTML === ''){
+    // create list to hold the data
+
+//var content1 = document.getElementById('content-container1');
+// var content2 = document.getElementById('content-container2');
+
+//var list = document.createElement('ul')
+ //var currentDayItem = document.createElement('li')
+ //currentDayItem.innerHTML = currentDay;
+// list.appendChild(currentDayItem)
+// content1.appendChild(list)
+
+
+ //}
+// }
+ //}
+ //appendData()
