@@ -1,5 +1,11 @@
 
-
+// make day.js dates into variables for curent day & 5 day forecast
+var currentDay = dayjs().format('M/D/YY');
+const tomorrow = dayjs().add(1, 'day').format('M/D/YY');
+const afterTomorrow = dayjs().add(2, 'day').format('M/D/YY');
+const thirdDayAfterCurrent = dayjs().add(3, 'day').format('M/D/YY');
+const forthDayAfterCurrent = dayjs().add(4, 'day').format('M/D/YY');
+const fifthDayAfterCurrent = dayjs().add(5, 'day').format('M/D/YY');
 
 
 // geocoding api
@@ -36,6 +42,8 @@ function searchCity() {
          .then(currentWeatherData => {
             // update content with weather data
             console.log("current day weather:", currentWeatherData);
+            console.log("_____________________________________________________________")
+            console.log(currentDay)
         console.log("Current-Day-Temp", currentWeatherData.main.temp)
         console.log("Current-Day-humidity", currentWeatherData.main.humidity)
         console.log("Current-Day-wind", currentWeatherData.wind.speed)
@@ -45,6 +53,7 @@ function searchCity() {
         
           //weather api
           var weatherUrl =`https://api.openweathermap.org/data/2.5/forecast?lat=${Latitude}&lon=${longitude}&units=imperial&appid=${apiKey}`;
+          console.log("_____________________________________________________________")
           console.log(`city: ${cityData.name}, Latitude: ${cityData.lat}, longitude: ${cityData.lon}`);
           console.log("_____________________________________________________________")
  
@@ -68,6 +77,7 @@ function searchCity() {
         //adding temperature from weather api
          var addedTemp1 = weatherData.list[0].main.temp + weatherData.list[1].main.temp + weatherData.list[2].main.temp + weatherData.list[3].main.temp + weatherData.list[4].main.temp + weatherData.list[5].main.temp + weatherData.list[6].main.temp + weatherData.list[7].main.temp
          var averageTemperature = (addedTemp1/8)
+         console.log(tomorrow)
          console.log('Day-2 (avg-temp):', averageTemperature);
          // adding humidity for day 2
          var addedHumidity = weatherData.list[0].main.humidity + weatherData.list[1].main.humidity + weatherData.list[2].main.humidity + weatherData.list[3].main.humidity + weatherData.list[4].main.humidity + weatherData.list[5].main.humidity + weatherData.list[6].main.humidity + weatherData.list[7].main.humidity
@@ -84,6 +94,7 @@ function searchCity() {
          // geting 3rd day average temp
          var addedTemp2 = weatherData.list[8].main.temp + weatherData.list[9].main.temp + weatherData.list[10].main.temp + weatherData.list[11].main.temp + weatherData.list[12].main.temp + weatherData.list[13].main.temp + weatherData.list[14].main.temp + weatherData.list[15].main.temp
          var averageTemperature1 = (addedTemp2/8)
+          console.log(afterTomorrow)
          console.log('Day-3 (avg-temp):', averageTemperature1);
           // adding humidity for day 3
           var addedHumidity1 = weatherData.list[8].main.humidity + weatherData.list[9].main.humidity + weatherData.list[10].main.humidity + weatherData.list[11].main.humidity + weatherData.list[12].main.humidity + weatherData.list[13].main.humidity + weatherData.list[14].main.humidity + weatherData.list[15].main.humidity
@@ -99,6 +110,7 @@ function searchCity() {
          // geting 4rd day average temp
          var addedTemp3 = weatherData.list[16].main.temp + weatherData.list[17].main.temp + weatherData.list[18].main.temp + weatherData.list[19].main.temp + weatherData.list[20].main.temp + weatherData.list[21].main.temp + weatherData.list[22].main.temp + weatherData.list[23].main.temp
          var averageTemperature2 = (addedTemp3/8)
+         console.log(thirdDayAfterCurrent)
          console.log('Day-4 (avg-temp):', averageTemperature2);
           // adding humidity for day 4
           var addedHumidity2 = weatherData.list[16].main.humidity + weatherData.list[17].main.humidity + weatherData.list[18].main.humidity + weatherData.list[19].main.humidity + weatherData.list[20].main.humidity + weatherData.list[21].main.humidity + weatherData.list[22].main.humidity + weatherData.list[23].main.humidity
@@ -114,6 +126,7 @@ function searchCity() {
          // geting 5th day average temp
          var addedTemp4 = weatherData.list[24].main.temp + weatherData.list[25].main.temp + weatherData.list[26].main.temp + weatherData.list[27].main.temp + weatherData.list[28].main.temp + weatherData.list[29].main.temp + weatherData.list[30].main.temp + weatherData.list[31].main.temp
          var averageTemperature3 = (addedTemp4/8)
+         console.log(forthDayAfterCurrent)
          console.log('Day-5 (avg-temp):', averageTemperature3);
          // adding humidity for day 5
          var addedHumidity3 = weatherData.list[24].main.humidity + weatherData.list[25].main.humidity + weatherData.list[26].main.humidity + weatherData.list[27].main.humidity + weatherData.list[28].main.humidity + weatherData.list[29].main.humidity + weatherData.list[30].main.humidity + weatherData.list[31].main.humidity
@@ -130,6 +143,7 @@ function searchCity() {
          // geting 6th day average temp
          var addedTemp5 = weatherData.list[32].main.temp + weatherData.list[33].main.temp + weatherData.list[34].main.temp + weatherData.list[35].main.temp + weatherData.list[36].main.temp + weatherData.list[37].main.temp + weatherData.list[38].main.temp + weatherData.list[39].main.temp
          var averageTemperature4 = (addedTemp5/8)
+         console.log(fifthDayAfterCurrent)
          console.log('Day-6 (avg-temp):', averageTemperature4);
          // adding humidity for day 6
          var addedHumidity4 = weatherData.list[32].main.humidity + weatherData.list[33].main.humidity + weatherData.list[34].main.humidity + weatherData.list[35].main.humidity + weatherData.list[36].main.humidity + weatherData.list[37].main.humidity + weatherData.list[38].main.humidity + weatherData.list[39].main.humidity
