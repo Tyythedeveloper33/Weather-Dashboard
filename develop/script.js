@@ -1,4 +1,6 @@
 
+
+
 // make day.js dates into variables for curent day & 5 day forecast
 var currentDay = dayjs().format('M/D/YY');
 const tomorrow = dayjs().add(1, 'day').format('M/D/YY');
@@ -6,45 +8,57 @@ const afterTomorrow = dayjs().add(2, 'day').format('M/D/YY');
 const thirdDayAfterCurrent = dayjs().add(3, 'day').format('M/D/YY');
 const forthDayAfterCurrent = dayjs().add(4, 'day').format('M/D/YY');
 const fifthDayAfterCurrent = dayjs().add(5, 'day').format('M/D/YY');
-
+// initialize search history in local storage if it doesnt exist
 // Lets first check if there is a localStorage KEY
 var savedData = localStorage.getItem('searchHistory');
 if(!savedData) {
     // Initalize a search History KEY:VALUE --> localStorage
     localStorage.setItem('searchHistory', '[]' )
-
 }
+
+
 var searchHistory = document.getElementById('history');
 
+
 // geocoding api
-// create add event listener
+// create add event listener to search button
 var searchBtn = document.getElementById("search-button");
 searchBtn.addEventListener('click', searchCity);
 // searchcity function
-function searchCity() {
+function searchCity(cityName,limit,apiKey,stateCode, countryCode) {
     var cityName = document.querySelector('.search-input').value;
-    // add our new city to our localStorage
+    // get the saved search history from our localStorage
     var savedCities = localStorage.getItem('searchHistory');
     console.log("Saved Data: ", savedCities);  // --> "[]"
     console.log("Saved Type: ", typeof savedCities);  // --> string type
 
+
     // we need to convert the data into something more useful
     var parsedData = JSON.parse(savedCities);  // --> []  | JS object
+   if(parsedData.includes(cityName)){
+    //exit the function if the city exist
+     return; 
+     
+// add the new city to the search history
+    }
     parsedData.push(cityName);  // --> ["syracuse"]
+
 
     localStorage.setItem('searchHistory', JSON.stringify(parsedData));
 
+    
 
 
-
+//perform api request and update the content with weather data
     // statecode & countryCode is replaced with the appropriate state code & countryCode  if applied
     var stateCode = '';
     var countryCode = '';
     var limit = 1;
     var apiKey = '7294cd9f83d12475284a0873d57ce046'
-    
+   
     // geocoding url
    var geocodingUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName},${stateCode},${countryCode}&limit=${limit}&appid=${apiKey}`;
+
 
     // make api request
     fetch(geocodingUrl)
@@ -57,8 +71,9 @@ function searchCity() {
           var Latitude = cityData.lat;
           var longitude = cityData.lon;
 
+
           // make fetch request to get current day by using diffent endpoint , instead of forecast its going to say weather
-          var currentWeatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${Latitude}&lon=${longitude}&units=imperial&appid=${apiKey}`
+          var currentWeatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${Latitude}&lon=${longitude}&units=imperial&appid=${apiKey}`;
           fetch(currentWeatherUrl)
           .then(response => response.json())  
          .then(currentWeatherData => {
@@ -69,29 +84,30 @@ function searchCity() {
         console.log("Current-Day-Temp", currentWeatherData.main.temp)
         console.log("Current-Day-humidity", currentWeatherData.main.humidity)
         console.log("Current-Day-wind", currentWeatherData.wind.speed)
-        console.log("_____________________________________________________________")
-        
-         })
-        
+        console.log("_____________________________________________________________");
+       
+         });
+       
           //weather api
           var weatherUrl =`https://api.openweathermap.org/data/2.5/forecast?lat=${Latitude}&lon=${longitude}&units=imperial&appid=${apiKey}`;
           console.log("_____________________________________________________________")
           console.log(`city: ${cityData.name}, Latitude: ${cityData.lat}, longitude: ${cityData.lon}`);
           console.log("_____________________________________________________________")
  
-        
+       
          fetch(weatherUrl)
          .then(response => response.json())  
         .then(weatherData => {
-            
-        
-        // update content with weather data 
-        console.log(weatherData);
-        
-        
+           
        
-        console.log("_____________________________________________________________")
+        // update content with weather data
+        console.log(weatherData);
+       
+       
+       
+        console.log("_____________________________________________________________");
  
+
 
         //adding temperature from weather api
          var addedTemp1 = weatherData.list[0].main.temp + weatherData.list[1].main.temp + weatherData.list[2].main.temp + weatherData.list[3].main.temp + weatherData.list[4].main.temp + weatherData.list[5].main.temp + weatherData.list[6].main.temp + weatherData.list[7].main.temp
@@ -102,9 +118,9 @@ function searchCity() {
          var addedHumidity = weatherData.list[0].main.humidity + weatherData.list[1].main.humidity + weatherData.list[2].main.humidity + weatherData.list[3].main.humidity + weatherData.list[4].main.humidity + weatherData.list[5].main.humidity + weatherData.list[6].main.humidity + weatherData.list[7].main.humidity
           var averageHumidity = (addedHumidity / 8)
          console.log('day-2 (avg- humidity):', averageHumidity)
-        
+       
          // make first forecast variable into a variable the contains first 7 json object temperatures to be able to get an average per day
-        // adding average wind need to know if speed 
+        // adding average wind need to know if speed
         var addedWind = weatherData.list[0].wind.speed + weatherData.list[1].wind.speed + weatherData.list[2].wind.speed + weatherData.list[3].wind.speed + weatherData.list[4].wind.speed + weatherData.list[5].wind.speed + weatherData.list[6].wind.speed + weatherData.list[7].wind.speed
          var averagewind = ( addedWind/8);
         console.log(" Day-2 wind(MPH)" , averagewind);
@@ -120,7 +136,8 @@ function searchCity() {
            var averageHumidity1 = (addedHumidity1 / 8)
           console.log('day-3 (avg- humidity):', averageHumidity1)
 
-            // adding average wind need to know if speed 
+
+            // adding average wind need to know if speed
         var addedWind1 = weatherData.list[8].wind.speed + weatherData.list[9].wind.speed + weatherData.list[10].wind.speed + weatherData.list[11].wind.speed + weatherData.list[12].wind.speed + weatherData.list[13].wind.speed + weatherData.list[14].wind.speed + weatherData.list[15].wind.speed
         var averagewind1 = ( addedWind1/8);
         console.log(" Day-3 wind(MPH)" , averagewind1);
@@ -136,7 +153,8 @@ function searchCity() {
            var averageHumidity2 = (addedHumidity2 / 8)
           console.log('day-4 (avg- humidity):', averageHumidity2)
 
-            // adding average wind need to know if speed 
+
+            // adding average wind need to know if speed
         var addedWind2 = weatherData.list[16].wind.speed + weatherData.list[17].wind.speed + weatherData.list[18].wind.speed + weatherData.list[19].wind.speed + weatherData.list[20].wind.speed + weatherData.list[21].wind.speed + weatherData.list[22].wind.speed + weatherData.list[23].wind.speed
        var averagewind2 = ( addedWind2/8);
         console.log(" Day-4 wind(MPH)" , averagewind2);
@@ -151,9 +169,9 @@ function searchCity() {
          var addedHumidity3 = weatherData.list[24].main.humidity + weatherData.list[25].main.humidity + weatherData.list[26].main.humidity + weatherData.list[27].main.humidity + weatherData.list[28].main.humidity + weatherData.list[29].main.humidity + weatherData.list[30].main.humidity + weatherData.list[31].main.humidity
          var averageHumidity3 = (addedHumidity3 / 8)
         console.log('day-5 (avg- humidity):', averageHumidity3)
-        
-        
-            // adding average wind need to know if speed 
+       
+       
+            // adding average wind need to know if speed
             var addedWind3 = weatherData.list[24].wind.speed + weatherData.list[25].wind.speed + weatherData.list[26].wind.speed + weatherData.list[27].wind.speed + weatherData.list[28].wind.speed + weatherData.list[29].wind.speed + weatherData.list[30].wind.speed + weatherData.list[31].wind.speed
             var averagewind3 = ( addedWind3/8);
              console.log(" Day-5 wind(MPH)" , averagewind3);
@@ -169,16 +187,21 @@ function searchCity() {
          var averageHumidity4 = (addedHumidity4 / 8)
         console.log('day-6 (avg- humidity):', averageHumidity4)
 
-         // adding average wind need to know if speed 
+
+         // adding average wind need to know if speed
          var addedWind4 = weatherData.list[32].wind.speed + weatherData.list[33].wind.speed + weatherData.list[34].wind.speed + weatherData.list[35].wind.speed + weatherData.list[36].wind.speed + weatherData.list[37].wind.speed + weatherData.list[38].wind.speed + weatherData.list[39].wind.speed
          var averagewind4 = ( addedWind4/8);
           console.log(" Day-6 wind(MPH)" , averagewind4);
 
+
+          //code for for processing and displaying forecast data
           showHistory();
+        // refresh the search history display
         })
         .catch(error => {
             console.error("Error:", error);
         });
+
 
            } else {
            throw new Error('No results found.');
@@ -187,48 +210,63 @@ function searchCity() {
        .catch(error => {
         console.error("Error:", error);
 
+
          });
          
        
   }
+//function to display the search history
+  function showHistory(stateCode,countryCode,limit,apiKey) {
 
-  function showHistory() {
 
     // We should CLEAR the existing data in our HISTORY CONTAINER
-
+    
     // 1) we should grab the CURRENT history data
     var history = localStorage.getItem('searchHistory');
+
 
     // 2) convert it to should useful  --> JS ARRAY []
     var historyArr = JSON.parse(history);
 
-    // 3) Loop thorugh the array 
+
+    // 3) Loop thorugh the array  to create city bttns
     for(let i = 0; i < historyArr.length; i++) {
+        var cityName = historyArr[i];
+        // check if the button for city exist already
+        if(! document.getElementById(cityName)) {
         // we should dynamically create a new HTML element (BUTTON)
         let newButton = document.createElement("button");
         // we need to add the TEXT CONTENT to the element
-        newButton.textContent = historyArr[i]
-        // (maybe) we need id or class attribute added 
-
+        newButton.textContent = cityName
+        // (maybe) we need id or class attribute added
+        newButton.id = cityName;
         // We want to listen for a CLICK event (addEventlistener -> each button))
-        
+        newButton.addEventListener('click', function(e) {
+           e.preventDefault()
+            searchCity(cityName,limit,apiKey,stateCode, countryCode);
+           
+        })
         // 4) we APPEND or add it to the DOM
         searchHistory.append(newButton);
-        
+      }  
+      
     }
 
-}
 
+}
+showHistory()
 // How do we get data from a HISOtY BUTTON(?)
 // We want to listen for a CLICK event (addEventlistener ->  the history container)
 // Find out the EVENT TARGET taht triggered the event
-// capture the event target value --> send it to the API function 
+// capture the event target value --> send it to the API function
+
+
 
 
  //function appendData() {
  // handle weather api response and update content container
  
-  
+ 
  //if(content1.innerHTML !== ''){
   //  content1.innerHTML = '';
   //  content2.innerHTML = '';
@@ -236,14 +274,18 @@ function searchCity() {
   //  if(content1.innerHTML === ''){
     // create list to hold the data
 
+
 //var content1 = document.getElementById('content-container1');
 // var content2 = document.getElementById('content-container2');
+
 
 //var list = document.createElement('ul')
  //var currentDayItem = document.createElement('li')
  //currentDayItem.innerHTML = currentDay;
 // list.appendChild(currentDayItem)
 // content1.appendChild(list)
+
+
 
 
  //}
