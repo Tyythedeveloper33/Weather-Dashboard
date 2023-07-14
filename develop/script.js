@@ -25,7 +25,7 @@ var searchHistory = document.getElementById('history');
 var searchBtn = document.getElementById("search-button");
 searchBtn.addEventListener('click', searchCity);
 // searchcity function
-function searchCity(cityName,limit,apiKey,stateCode, countryCode) {
+function searchCity() {
     var cityName = document.querySelector('.search-input').value;
     // get the saved search history from our localStorage
     var savedCities = localStorage.getItem('searchHistory');
@@ -243,7 +243,7 @@ function searchCity(cityName,limit,apiKey,stateCode, countryCode) {
         // We want to listen for a CLICK event (addEventlistener -> each button))
         newButton.addEventListener('click', function(e) {
            e.preventDefault()
-            searchCity(cityName,limit,apiKey,stateCode, countryCode);
+           buttonCity(cityName)
            
         })
         // 4) we APPEND or add it to the DOM
@@ -255,6 +255,150 @@ function searchCity(cityName,limit,apiKey,stateCode, countryCode) {
 
 }
 showHistory()
+
+function buttonCity(cityName){
+    var stateCodee = '';
+    var countryCodee = '';
+    var limitt = 1;
+    var apiKeyy = '7294cd9f83d12475284a0873d57ce046'
+
+    var geocodingUrll = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName},${stateCodee},${countryCodee}&limit=${limitt}&appid=${apiKeyy}`;
+ 
+     // make api request
+     fetch(geocodingUrll)
+     .then(response => response.json())
+     .then(Geodata => {
+
+    if (Geodata.length > 0){
+     // update content with api data
+      
+      var cityDataa = Geodata[0];
+      var Latitudee = cityDataa.lat;
+      var longitudee = cityDataa.lon;
+
+    }
+
+ 
+      // make fetch request to get current day by using diffent endpoint , instead of forecast its going to say weather
+      var currentWeatherUrll = `https://api.openweathermap.org/data/2.5/weather?lat=${Latitudee}&lon=${longitudee}&units=imperial&appid=${apiKeyy}`;
+      fetch(currentWeatherUrll)
+      .then(response => response.json())  
+     .then(ccurrentWeatherData => {
+        // update content with weather data
+        console.log("current day weather:", ccurrentWeatherData);
+        console.log("_____________________________________________________________")
+        console.log(currentDay)
+    console.log("Current-Day-Temp", ccurrentWeatherData.main.temp)
+    console.log("Current-Day-humidity", ccurrentWeatherData.main.humidity)
+    console.log("Current-Day-wind", ccurrentWeatherData.wind.speed)
+    console.log("_____________________________________________________________")
+})
+ //weather api
+ var weatherUrll =`https://api.openweathermap.org/data/2.5/forecast?lat=${Latitudee}&lon=${longitudee}&units=imperial&appid=${apiKeyy}`;
+ console.log("_____________________________________________________________")
+ console.log(`city: ${cityDataa.name}, Latitude: ${cityDataa.lat}, longitude: ${cityDataa.lon}`);
+ console.log("_____________________________________________________________")
+ 
+ fetch(weatherUrll)
+ .then(response => response.json())  
+.then(weatherDataa => {
+   
+
+// update content with weather data
+console.log(weatherDataa);
+
+
+
+console.log("_____________________________________________________________");
+
+        //adding temperature from weather api
+        var addedTemp1 = weatherDataa.list[0].main.temp + weatherDataa.list[1].main.temp + weatherDataa.list[2].main.temp + weatherDataa.list[3].main.temp + weatherDataa.list[4].main.temp + weatherDataa.list[5].main.temp + weatherDataa.list[6].main.temp + weatherDataa.list[7].main.temp
+        var averageTemperature = (addedTemp1/8)
+        console.log(tomorrow)
+        console.log('Day-2 (avg-temp):', averageTemperature);
+        // adding humidity for day 2
+        var addedHumidity = weatherDataa.list[0].main.humidity + weatherDataa.list[1].main.humidity + weatherDataa.list[2].main.humidity + weatherDataa.list[3].main.humidity + weatherDataa.list[4].main.humidity + weatherDataa.list[5].main.humidity + weatherDataa.list[6].main.humidity + weatherDataa.list[7].main.humidity
+         var averageHumidity = (addedHumidity / 8)
+        console.log('day-2 (avg- humidity):', averageHumidity)
+      
+        // make first forecast variable into a variable the contains first 7 json object temperatures to be able to get an average per day
+       // adding average wind need to know if speed
+       var addedWind = weatherDataa.list[0].wind.speed + weatherDataa.list[1].wind.speed + weatherDataa.list[2].wind.speed + weatherDataa.list[3].wind.speed + weatherDataa.list[4].wind.speed + weatherDataa.list[5].wind.speed + weatherDataa.list[6].wind.speed + weatherDataa.list[7].wind.speed
+        var averagewind = ( addedWind/8);
+       console.log(" Day-2 wind(MPH)" , averagewind);
+       console.log("_____________________________________________________________")
+  // geting 3rd day average temp
+        var addedTemp2 = weatherDataa.list[8].main.temp + weatherDataa.list[9].main.temp + weatherDataa.list[10].main.temp + weatherDataa.list[11].main.temp + weatherDataa.list[12].main.temp + weatherDataa.list[13].main.temp + weatherDataa.list[14].main.temp + weatherDataa.list[15].main.temp
+        var averageTemperature1 = (addedTemp2/8)
+        console.log(afterTomorrow)
+        console.log('Day-3 (avg-temp):', averageTemperature1);
+   // adding humidity for day 3
+        var addedHumidity1 = weatherDataa.list[8].main.humidity + weatherDataa.list[9].main.humidity + weatherDataa.list[10].main.humidity + weatherDataa.list[11].main.humidity + weatherDataa.list[12].main.humidity + weatherDataa.list[13].main.humidity + weatherDataa.list[14].main.humidity + weatherDataa.list[15].main.humidity
+            var averageHumidity1 = (addedHumidity1 / 8)
+        console.log('day-3 (avg- humidity):', averageHumidity1)
+
+
+     // adding average wind need to know if speed
+        var addedWind1 = weatherDataa.list[8].wind.speed + weatherDataa.list[9].wind.speed + weatherDataa.list[10].wind.speed + weatherDataa.list[11].wind.speed + weatherDataa.list[12].wind.speed + weatherDataa.list[13].wind.speed + weatherDataa.list[14].wind.speed + weatherDataa.list[15].wind.speed
+        var averagewind1 = ( addedWind1/8);
+        console.log(" Day-3 wind(MPH)" , averagewind1);
+        console.log("_____________________________________________________________")
+        // geting 4rd day average temp
+        var addedTemp3 = weatherDataa.list[16].main.temp + weatherDataa.list[17].main.temp + weatherDataa.list[18].main.temp + weatherDataa.list[19].main.temp + weatherDataa.list[20].main.temp + weatherDataa.list[21].main.temp + weatherDataa.list[22].main.temp + weatherDataa.list[23].main.temp
+        var averageTemperature2 = (addedTemp3/8)
+        console.log(thirdDayAfterCurrent)
+        console.log('Day-4 (avg-temp):', averageTemperature2);
+        // adding humidity for day 4
+        var addedHumidity2 = weatherDataa.list[16].main.humidity + weatherDataa.list[17].main.humidity + weatherDataa.list[18].main.humidity + weatherDataa.list[19].main.humidity + weatherDataa.list[20].main.humidity + weatherDataa.list[21].main.humidity + weatherDataa.list[22].main.humidity + weatherDataa.list[23].main.humidity
+            var averageHumidity2 = (addedHumidity2 / 8)
+        console.log('day-4 (avg- humidity):', averageHumidity2)
+
+
+            // adding average wind need to know if speed
+        var addedWind2 = weatherDataa.list[16].wind.speed + weatherDataa.list[17].wind.speed + weatherDataa.list[18].wind.speed + weatherDataa.list[19].wind.speed + weatherDataa.list[20].wind.speed + weatherDataa.list[21].wind.speed + weatherDataa.list[22].wind.speed + weatherDataa.list[23].wind.speed
+        var averagewind2 = ( addedWind2/8);
+        console.log(" Day-4 wind(MPH)" , averagewind2);
+        console.log("_____________________________________________________________")
+            // geting 5th day average temp
+            var addedTemp4 = weatherDataa.list[24].main.temp + weatherDataa.list[25].main.temp + weatherDataa.list[26].main.temp + weatherDataa.list[27].main.temp + weatherDataa.list[28].main.temp + weatherDataa.list[29].main.temp + weatherDataa.list[30].main.temp + weatherDataa.list[31].main.temp
+            var averageTemperature3 = (addedTemp4/8)
+            console.log(forthDayAfterCurrent)
+            console.log('Day-5 (avg-temp):', averageTemperature3);
+            // adding humidity for day 5
+            var addedHumidity3 = weatherDataa.list[24].main.humidity + weatherDataa.list[25].main.humidity + weatherDataa.list[26].main.humidity + weatherDataa.list[27].main.humidity + weatherDataa.list[28].main.humidity + weatherDataa.list[29].main.humidity + weatherDataa.list[30].main.humidity + weatherDataa.list[31].main.humidity
+            var averageHumidity3 = (addedHumidity3 / 8)
+            console.log('day-5 (avg- humidity):', averageHumidity3)
+
+
+                // adding average wind need to know if speed
+                var addedWind3 = weatherDataa.list[24].wind.speed + weatherDataa.list[25].wind.speed + weatherDataa.list[26].wind.speed + weatherDataa.list[27].wind.speed + weatherDataa.list[28].wind.speed + weatherDataa.list[29].wind.speed + weatherDataa.list[30].wind.speed + weatherDataa.list[31].wind.speed
+                var averagewind3 = ( addedWind3/8);
+                console.log(" Day-5 wind(MPH)" , averagewind3);
+                console.log("_____________________________________________________________")
+                        
+                // geting 6th day average temp
+                var addedTemp5 = weatherDataa.list[32].main.temp + weatherDataa.list[33].main.temp + weatherDataa.list[34].main.temp + weatherDataa.list[35].main.temp + weatherDataa.list[36].main.temp + weatherDataa.list[37].main.temp + weatherDataa.list[38].main.temp + weatherDataa.list[39].main.temp
+                var averageTemperature4 = (addedTemp5/8)
+                console.log(fifthDayAfterCurrent)
+                console.log('Day-6 (avg-temp):', averageTemperature4);
+                // adding humidity for day 6
+                var addedHumidity4 = weatherDataa.list[32].main.humidity + weatherDataa.list[33].main.humidity + weatherDataa.list[34].main.humidity + weatherDataa.list[35].main.humidity + weatherDataa.list[36].main.humidity + weatherDataa.list[37].main.humidity + weatherDataa.list[38].main.humidity + weatherDataa.list[39].main.humidity
+                var averageHumidity4 = (addedHumidity4 / 8)
+                console.log('day-6 (avg- humidity):', averageHumidity4)
+
+
+                // adding average wind need to know if speed
+                var addedWind4 = weatherDataa.list[32].wind.speed + weatherDataa.list[33].wind.speed + weatherDataa.list[34].wind.speed + weatherDataa.list[35].wind.speed + weatherDataa.list[36].wind.speed + weatherDataa.list[37].wind.speed + weatherDataa.list[38].wind.speed + weatherDataa.list[39].wind.speed
+                var averagewind4 = ( addedWind4/8);
+                console.log(" Day-6 wind(MPH)" , averagewind4);
+
+
+     })
+ 
+     
+     })
+    }
+
 // How do we get data from a HISOtY BUTTON(?)
 // We want to listen for a CLICK event (addEventlistener ->  the history container)
 // Find out the EVENT TARGET taht triggered the event
