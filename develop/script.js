@@ -242,9 +242,10 @@ function searchCity() {
         newButton.id = cityName;
         // We want to listen for a CLICK event (addEventlistener -> each button))
         newButton.addEventListener('click', function(e) {
+            var cityName = newButton.id ;
            e.preventDefault()
            buttonCity(cityName)
-           
+            
         })
         // 4) we APPEND or add it to the DOM
         searchHistory.append(newButton);
@@ -257,6 +258,7 @@ function searchCity() {
 showHistory()
 
 function buttonCity(cityName){
+   
     var stateCodee = '';
     var countryCodee = '';
     var limitt = 1;
