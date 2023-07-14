@@ -85,7 +85,7 @@ function searchCity() {
         console.log("Current-Day-humidity", currentWeatherData.main.humidity)
         console.log("Current-Day-wind", currentWeatherData.wind.speed)
         console.log("_____________________________________________________________");
-        
+         appendData(currentDay, currentWeatherData.main.temp,currentWeatherData.main.humidity,currentWeatherData.wind.speed,cityName)
          });
        
           //weather api
@@ -192,7 +192,7 @@ function searchCity() {
          var addedWind4 = weatherData.list[32].wind.speed + weatherData.list[33].wind.speed + weatherData.list[34].wind.speed + weatherData.list[35].wind.speed + weatherData.list[36].wind.speed + weatherData.list[37].wind.speed + weatherData.list[38].wind.speed + weatherData.list[39].wind.speed
          var averagewind4 = ( addedWind4/8);
           console.log(" Day-6 wind(MPH)" , averagewind4);
-          appendData(currentDay, averageTemperature,averageHumidity,averagewind, cityName)
+         
 
           //code for for processing and displaying forecast data
           showHistory();
