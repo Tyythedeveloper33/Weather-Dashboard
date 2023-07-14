@@ -41,3 +41,11 @@ body {
  div .navbar-content {
      font-size: 22px;
 }
+
+
+/* appendedv <p> style for top container*/
+p {
+    font-size: 16px;
+}
+
+

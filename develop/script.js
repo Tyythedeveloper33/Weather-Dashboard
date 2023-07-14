@@ -85,7 +85,7 @@ function searchCity() {
         console.log("Current-Day-humidity", currentWeatherData.main.humidity)
         console.log("Current-Day-wind", currentWeatherData.wind.speed)
         console.log("_____________________________________________________________");
-       
+        
          });
        
           //weather api
@@ -192,7 +192,7 @@ function searchCity() {
          var addedWind4 = weatherData.list[32].wind.speed + weatherData.list[33].wind.speed + weatherData.list[34].wind.speed + weatherData.list[35].wind.speed + weatherData.list[36].wind.speed + weatherData.list[37].wind.speed + weatherData.list[38].wind.speed + weatherData.list[39].wind.speed
          var averagewind4 = ( addedWind4/8);
           console.log(" Day-6 wind(MPH)" , averagewind4);
-
+          appendData(currentDay, averageTemperature,averageHumidity,averagewind, cityName)
 
           //code for for processing and displaying forecast data
           showHistory();
@@ -294,6 +294,7 @@ function buttonCity(cityName){
     console.log("Current-Day-humidity", ccurrentWeatherData.main.humidity)
     console.log("Current-Day-wind", ccurrentWeatherData.wind.speed)
     console.log("_____________________________________________________________")
+
 })
  //weather api
  var weatherUrll =`https://api.openweathermap.org/data/2.5/forecast?lat=${Latitudee}&lon=${longitudee}&units=imperial&appid=${apiKeyy}`;
@@ -309,7 +310,7 @@ function buttonCity(cityName){
 // update content with weather data
 console.log(weatherDataa);
 
-
+AppendData()
 
 console.log("_____________________________________________________________");
 
@@ -401,16 +402,38 @@ console.log("_____________________________________________________________");
      })
     }
 
-// How do we get data from a HISOtY BUTTON(?)
-// We want to listen for a CLICK event (addEventlistener ->  the history container)
-// Find out the EVENT TARGET taht triggered the event
-// capture the event target value --> send it to the API function
 
 
 
 
- //function appendData() {
- // handle weather api response and update content container
+
+ function appendData(currentDay, averageTemperature,averageHumidity,averagewind, cityName) {
+// select content containers
+var containerTop = document.getElementById("search-container1");
+var containerBottom = document.getElementById("search-container2");
+//create elements for displaying data
+ var displayDate = document.createElement('h1');
+ var displayTemp = document.createElement('p');
+ var displayHumidity = document.createElement('p');
+ var displaywind = document.createElement('p');
+ // set text content for each element
+ displayDate.textContent = cityName + ':' + '('+currentDay + ')';
+ displayTemp.textContent = 'Temp:'+ averageTemperature;
+ displayHumidity.textContent = 'Humidity:'+ averageHumidity;
+ displaywind.textContent = 'Wind:(mph):'+ averagewind;
+
+//Append texte content
+containerTop.appendChild(displayDate);
+displayDate.appendChild(displayTemp);
+displayTemp.appendChild(displayHumidity);
+displayHumidity.appendChild(displaywind);
+ displayDate.className = displayDate;
+ displayTemp.className = displayTemp;
+ displayHumidity.className = displayHumidity;
+ displaywind.className = displaywind;
+
+ }
+
  
  
  //if(content1.innerHTML !== ''){
