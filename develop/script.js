@@ -310,7 +310,7 @@ function buttonCity(cityName){
 // update content with weather data
 console.log(weatherDataa);
 
-AppendData()
+
 
 console.log("_____________________________________________________________");
 

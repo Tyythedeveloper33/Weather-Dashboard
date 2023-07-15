@@ -49,3 +49,14 @@ p {
 }
 
 
+/* bottom container box stylying*/
+.box {
+    width: 19.75%;
+    height: 200px;
+    background-color: #0066CC;
+    color: white;
+    text-align: center;
+    display: inline-block;
+    align-items: center;
+    justify-content: center;
+}
