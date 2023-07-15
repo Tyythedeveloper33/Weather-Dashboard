@@ -85,7 +85,7 @@ function searchCity() {
         console.log("Current-Day-humidity", currentWeatherData.main.humidity)
         console.log("Current-Day-wind", currentWeatherData.wind.speed)
         console.log("_____________________________________________________________");
-         appendData(currentDay, currentWeatherData.main.temp,currentWeatherData.main.humidity,currentWeatherData.wind.speed,cityName)
+         appendDataCurrent(currentDay, currentWeatherData.main.temp,currentWeatherData.main.humidity,currentWeatherData.wind.speed,cityName, )
          });
        
           //weather api
@@ -193,7 +193,7 @@ function searchCity() {
          var averagewind4 = ( addedWind4/8);
           console.log(" Day-6 wind(MPH)" , averagewind4);
          
-
+        appendDataForecast(tomorrow, averageTemperature, averageHumidity, averagewind, afterTomorrow,averageTemperature1,averageHumidity1, averagewind1, thirdDayAfterCurrent, averageTemperature2, averageHumidity2, averagewind2, forthDayAfterCurrent, averageTemperature3, averageHumidity3, averagewind3, fifthDayAfterCurrent, averageTemperature4, averageHumidity4, averagewind4);
           //code for for processing and displaying forecast data
           showHistory();
         // refresh the search history display
@@ -407,11 +407,11 @@ console.log("_____________________________________________________________");
 
 
 
- function appendData(currentDay, averageTemperature,averageHumidity,averagewind, cityName) {
+ function appendDataCurrent(currentDay, averageTemperature,averageHumidity,averagewind, cityName) {
 // select content containers
 var containerTop = document.getElementById("search-container1");
-var containerBottom = document.getElementById("search-container2");
-//create elements for displaying data
+
+//create elements for displaying data (current day)
  var displayDate = document.createElement('h1');
  var displayTemp = document.createElement('p');
  var displayHumidity = document.createElement('p');
@@ -422,7 +422,7 @@ var containerBottom = document.getElementById("search-container2");
  displayHumidity.textContent = 'Humidity:'+ averageHumidity;
  displaywind.textContent = 'Wind:(mph):'+ averagewind;
 
-//Append texte content
+//Append texte content   (current day)
 containerTop.appendChild(displayDate);
 displayDate.appendChild(displayTemp);
 displayTemp.appendChild(displayHumidity);
@@ -431,10 +431,131 @@ displayHumidity.appendChild(displaywind);
  displayTemp.className = displayTemp;
  displayHumidity.className = displayHumidity;
  displaywind.className = displaywind;
-
+ 
  }
 
- 
+ function appendDataForecast(tomorrow, averageTemperature, averageHumidity, averagewind, afterTomorrow,averageTemperature1,averageHumidity1, averagewind1,thirdDayAfterCurrent, averageTemperature2, averageHumidity2, averagewind2,  forthDayAfterCurrent, averageTemperature3, averageHumidity3, averagewind3, fifthDayAfterCurrent, averageTemperature4, averageHumidity4, averagewind4){
+    // select content containers
+    var bottomBox1 = document.getElementById("box-1");
+// appending 2nd day in bottom container box-1
+ // makeing date element
+ var displayDate = document.createElement('h1');
+ displayDate.textContent = '(' + tomorrow + ')';
+//making temperature el
+ var displayTemp1 = document.createElement('p');
+ displayTemp1.textContent = 'Temp:' + averageTemperature ;
+ // making humidity el
+ var displayHumidity = document.createElement('p');
+ displayHumidity.textContent = 'Humidity:'+ averageHumidity;
+ //making wind element
+ var displaywind = document.createElement('p');
+ displaywind.textContent = 'Wind:(mph):'+ averagewind;
+ // append text content for day-2 box-1 forecast
+ bottomBox1.appendChild(displayDate);
+ displayDate.appendChild(displayTemp1);
+ displayTemp1.appendChild(displayHumidity);
+ displayHumidity.appendChild(displaywind);
+  displayDate.className = displayDate;
+  displayTemp1.className = displayTemp1;
+  displayHumidity.className = displayHumidity;
+  displaywind.className = displaywind;
+  // box 2 appending data 
+  var bottomBox2 = document.getElementById("box-2");
+  // appending 2nd day in bottom container box-1
+   // makeing date element
+   var displayDate1 = document.createElement('h1');
+   displayDate1.textContent = '(' + afterTomorrow + ')';
+  //making temperature el
+   var displayTemp2 = document.createElement('p');
+   displayTemp2.textContent = 'Temp:' + averageTemperature1 ;
+   // making humidity el
+   var displayHumidity1 = document.createElement('p');
+   displayHumidity1.textContent = 'Humidity:'+ averageHumidity1;
+   //making wind element
+   var displaywind1 = document.createElement('p');
+   displaywind1.textContent = 'Wind:(mph):'+ averagewind1;
+   // append text content for day-2 box-1 forecast
+   bottomBox2.appendChild(displayDate1);
+   displayDate1.appendChild(displayTemp2);
+   displayTemp2.appendChild(displayHumidity1);
+   displayHumidity1.appendChild(displaywind1);
+    displayDate1.className = displayDate;
+    displayTemp2.className = displayTemp1;
+    displayHumidity1.className = displayHumidity;
+    displaywind1.className = displaywind;
+     // box 3 appending data 
+  var bottomBox3 = document.getElementById("box-3");
+  // appending 2nd day in bottom container box-1
+   // makeing date element
+   var displayDate2 = document.createElement('h1');
+   displayDate2.textContent = '(' + thirdDayAfterCurrent + ')';
+  //making temperature el
+   var displayTemp3 = document.createElement('p');
+   displayTemp3.textContent = 'Temp:' + averageTemperature2 ;
+   // making humidity el
+   var displayHumidity2 = document.createElement('p');
+   displayHumidity2.textContent = 'Humidity:'+ averageHumidity2;
+   //making wind element
+   var displaywind2 = document.createElement('p');
+   displaywind2.textContent = 'Wind:(mph):'+ averagewind2;
+   // append text content for day-2 box-1 forecast
+   bottomBox3.appendChild(displayDate2);
+   displayDate2.appendChild(displayTemp3);
+   displayTemp3.appendChild(displayHumidity2);
+   displayHumidity2.appendChild(displaywind2);
+    displayDate2.className = displayDate;
+    displayTemp3.className = displayTemp1;
+    displayHumidity2.className = displayHumidity;
+    displaywind2.className = displaywind;
+     // box 4 appending data 
+  var bottomBox4 = document.getElementById("box-4");
+  // appending 2nd day in bottom container box-1
+   // makeing date element
+   var displayDate3 = document.createElement('h1');
+   displayDate3.textContent = '(' + forthDayAfterCurrent + ')';
+  //making temperature el
+   var displayTemp4 = document.createElement('p');
+   displayTemp4.textContent = 'Temp:' + averageTemperature3 ;
+   // making humidity el
+   var displayHumidity3 = document.createElement('p');
+   displayHumidity3.textContent = 'Humidity:'+ averageHumidity3;
+   //making wind element
+   var displaywind3 = document.createElement('p');
+   displaywind3.textContent = 'Wind:(mph):'+ averagewind3;
+   // append text content for day-2 box-1 forecast
+   bottomBox4.appendChild(displayDate3);
+   displayDate3.appendChild(displayTemp4);
+   displayTemp4.appendChild(displayHumidity3);
+   displayHumidity3.appendChild(displaywind3);
+    displayDate3.className = displayDate;
+    displayTemp4.className = displayTemp1;
+    displayHumidity3.className = displayHumidity;
+    displaywind3.className = displaywind;
+      // box 5 appending data 
+  var bottomBox5 = document.getElementById("box-5");
+  // appending 2nd day in bottom container box-1
+   // makeing date element
+   var displayDate4 = document.createElement('h1');
+   displayDate4.textContent = '(' + fifthDayAfterCurrent + ')';
+  //making temperature el
+   var displayTemp5 = document.createElement('p');
+   displayTemp5.textContent = 'Temp:' + averageTemperature4 ;
+   // making humidity el
+   var displayHumidity4 = document.createElement('p');
+   displayHumidity4.textContent = 'Humidity:'+ averageHumidity4;
+   //making wind element
+   var displaywind4 = document.createElement('p');
+   displaywind4.textContent = 'Wind:(mph):'+ averagewind4;
+   // append text content for day-2 box-1 forecast
+   bottomBox5.appendChild(displayDate4);
+   displayDate4.appendChild(displayTemp5);
+   displayTemp5.appendChild(displayHumidity4);
+   displayHumidity4.appendChild(displaywind4);
+    displayDate4.className = displayDate;
+    displayTemp5.className = displayTemp1;
+    displayHumidity4.className = displayHumidity;
+    displaywind4.className = displaywind;
+ }
  
  //if(content1.innerHTML !== ''){
   //  content1.innerHTML = '';
