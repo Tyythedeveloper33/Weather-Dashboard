@@ -85,7 +85,9 @@ function searchCity() {
         console.log("Current-Day-humidity", currentWeatherData.main.humidity)
         console.log("Current-Day-wind", currentWeatherData.wind.speed)
         console.log("_____________________________________________________________");
-         appendDataCurrent(currentDay, currentWeatherData.main.temp,currentWeatherData.main.humidity,currentWeatherData.wind.speed,cityName, )
+        
+        clearResults() 
+        appendDataCurrent(currentDay, currentWeatherData.main.temp,currentWeatherData.main.humidity,currentWeatherData.wind.speed,cityName, )
          });
        
           //weather api
@@ -192,7 +194,7 @@ function searchCity() {
          var addedWind4 = weatherData.list[32].wind.speed + weatherData.list[33].wind.speed + weatherData.list[34].wind.speed + weatherData.list[35].wind.speed + weatherData.list[36].wind.speed + weatherData.list[37].wind.speed + weatherData.list[38].wind.speed + weatherData.list[39].wind.speed
          var averagewind4 = ( addedWind4/8);
           console.log(" Day-6 wind(MPH)" , averagewind4);
-         
+          
         appendDataForecast(tomorrow, averageTemperature, averageHumidity, averagewind, afterTomorrow,averageTemperature1,averageHumidity1, averagewind1, thirdDayAfterCurrent, averageTemperature2, averageHumidity2, averagewind2, forthDayAfterCurrent, averageTemperature3, averageHumidity3, averagewind3, fifthDayAfterCurrent, averageTemperature4, averageHumidity4, averagewind4);
           //code for for processing and displaying forecast data
           showHistory();
@@ -431,10 +433,13 @@ displayHumidity.appendChild(displaywind);
  displayTemp.className = displayTemp;
  displayHumidity.className = displayHumidity;
  displaywind.className = displaywind;
+
+ 
  
  }
 
  function appendDataForecast(tomorrow, averageTemperature, averageHumidity, averagewind, afterTomorrow,averageTemperature1,averageHumidity1, averagewind1,thirdDayAfterCurrent, averageTemperature2, averageHumidity2, averagewind2,  forthDayAfterCurrent, averageTemperature3, averageHumidity3, averagewind3, fifthDayAfterCurrent, averageTemperature4, averageHumidity4, averagewind4){
+ 
     // select content containers
     var bottomBox1 = document.getElementById("box-1");
 // appending 2nd day in bottom container box-1
@@ -557,6 +562,18 @@ displayHumidity.appendChild(displaywind);
     displaywind4.className = displaywind;
  }
  
+ function clearResults(){
+   // document.body.innerHTML = '';
+  
+  var topContainer = document.getElementById('search-container1')
+  if (topContainer.innerHTML !== '') {
+  
+  topContainer.innerHTML= '';
+   
+    
+ }
+}
+
  //if(content1.innerHTML !== ''){
   //  content1.innerHTML = '';
   //  content2.innerHTML = '';
