@@ -439,6 +439,10 @@ displayHumidity.appendChild(displaywind);
  }
 
  function appendDataForecast(tomorrow, averageTemperature, averageHumidity, averagewind, afterTomorrow,averageTemperature1,averageHumidity1, averagewind1,thirdDayAfterCurrent, averageTemperature2, averageHumidity2, averagewind2,  forthDayAfterCurrent, averageTemperature3, averageHumidity3, averagewind3, fifthDayAfterCurrent, averageTemperature4, averageHumidity4, averagewind4){
+    var boxes = document.getElementsByClassName('box');
+ for (var i = 0; i< boxes.length; i++) {
+    boxes[i].textContent = '';
+ }
  
     // select content containers
     var bottomBox1 = document.getElementById("box-1");
@@ -564,7 +568,7 @@ displayHumidity.appendChild(displaywind);
  
  function clearResults(){
    // document.body.innerHTML = '';
-  
+ 
   var topContainer = document.getElementById('search-container1')
   if (topContainer.innerHTML !== '') {
   
