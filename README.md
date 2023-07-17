@@ -1,102 +1,60 @@
-# 06 Server-Side APIs: Weather Dashboard
+# Weather Dashboard
 
-## Your Task
+## Almost fully functional weather board to  display current & future forecast
+This project was built with VS CODE with the intent on building a fully functional weather dashboard where the user would be able to search a city & pull up the current day's weather along with the 5 day forecast after the current day, also I have made it so the users cities searched get saved into local storage & it creates a button, unfortanatley I got stuck on this part & will need to refactor this code so that on the click of the buttons it appends the same information appended when you search a city by name.
 
-Third-party APIs allow developers to access their data and functionality by making requests with specific parameters to a URL. Developers are often tasked with retrieving data from another application's API and using it in the context of their own. Your challenge is to build a weather dashboard that will run in the browser and feature dynamically updated HTML and CSS.
+* WHEN user searches for a city THEN user is presented with current and future conditions for that city and that city is added to the search history
+* WHEN user views current weather conditions for that city,  THEN user is presented with the city name, the date, the temperature, the humidity, and the wind speed
+* WHEN user views future weather conditions for that city , THEN user is presented with a 5-day forecast that displays the date, the temperature, the wind speed, and the humidity
 
-Use the [5 Day Weather Forecast](https://openweathermap.org/forecast5) to retrieve weather data for cities. The base URL should look like the following: `https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid=7294cd9f83d12475284a0873d57ce046`. After registering for a new API key, you may need to wait up to 2 hours for that API key to activate.
+## visual helper
+start up screen
+![screenshot of weather dashboard](./images/IMG_0712.jpg)
 
-**Hint**: Using the 5 Day Weather Forecast API, you'll notice that you will need to pass in coordinates instead of just a city name. Using the OpenWeatherMap APIs, how could we retrieve geographical coordinates given a city name?
 
-You will use `localStorage` to store any persistent data. For more information on how to work with the OpenWeather API, refer to the [Full-Stack Blog on how to use API keys](https://coding-boot-camp.github.io/full-stack/apis/how-to-use-api-keys).
 
-## User Story
+## installation instructions for users
+* To install this You will first need Visual Studio Code
+ * To install this you will need Git Bash, or a terminal that is convienent for your computer
+## Usage
+ * Step 1- you will want to create a folder using your terminal anyname works!
+ * step 2- you want to create a repository to your local environment(Terminal) using command- git init
+ * step 3- you will want to open up this code from your terminal onto Visual Studio Code using command- code .
+ * Step 4- once VS-Code is open you will click open folder, and find the folder you named in (step #1)
+ * Step 5- you will notice that the folder is empty, go ahead and create 3 new files  and rename them(index.html, script.js, and style.css) by right clicking over the untitled file, then click rename!
+ * Step 6- Go ahead back to where you found my gitgub pages, and copy the index.html, and paste it into yours!
+ * Step 7- Go ahead back to where you found my gitgub pages, and copy the style.css, and paste it into yours!
+ * Step 8- Go ahead back to where you found my gitgub pages, and copy the script.js, and paste it into yours!
 
-```
-AS A traveler
-I WANT to see the weather outlook for multiple cities
-SO THAT I can plan a trip accordingly
-```
-
-## Acceptance Criteria
-
-```
-GIVEN a weather dashboard with form inputs
-WHEN I search for a city
-THEN I am presented with current and future conditions for that city and that city is added to the search history
-WHEN I view current weather conditions for that city
-THEN I am presented with the city name, the date, an icon representation of weather conditions, the temperature, the humidity, and the wind speed
-WHEN I view future weather conditions for that city
-THEN I am presented with a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, the wind speed, and the humidity
-WHEN I click on a city in the search history
-THEN I am again presented with current and future conditions for that city
-```
-
-## Mock-Up
-
-The following image shows the web application's appearance and functionality:
-
-![The weather app includes a search option, a list of cities, and a five-day forecast and current weather conditions for Atlanta.](./Assets/06-server-side-apis-homework-demo.png)
-
-## Grading Requirements
-
-> **Note**: If a Challenge assignment submission is marked as “0”, it is considered incomplete and will not count towards your graduation requirements. Examples of incomplete submissions include the following:
->
-> * A repository that has no code
->
-> * A repository that includes a unique name but nothing else
->
-> * A repository that includes only a README file but nothing else
->
-> * A repository that only includes starter code
-
-This Challenge is graded based on the following criteria: 
-
-### Technical Acceptance Criteria: 40%
-
-* Satisfies all of the above acceptance criteria plus the following:
-
-    * Uses the OpenWeather API to retrieve weather data.
-
-    * Uses `localStorage` to store persistent data.
-
-### Deployment: 32%
-
-* Application deployed at live URL.
-
-* Application loads with no errors.
-
-* Application GitHub URL submitted.
-
-* GitHub repository that contains application code.
-
-### Application Quality: 15%
-
-* Application user experience is intuitive and easy to navigate.
-
-* Application user interface style is clean and polished.
-
-* Application resembles the mock-up functionality provided in the Challenge instructions.
-
-### Repository Quality: 13%
-
-* Repository has a unique name.
-
-* Repository follows best practices for file structure and naming conventions.
-
-* Repository follows best practices for class/id naming conventions, indentation, quality comments, etc.
-
-* Repository contains multiple descriptive commit messages.
-
-* Repository contains quality readme file with description, screenshot, and link to deployed application.
+ * Step 9- From here on out this is where you can edit the code to better reflect your own touch to creativity!!
+* **Urgent** on line 4 of index you will see my relative pathway for my project, your relative pathway most likely will differ, so go ahead and change it so the index.html, and style.css can work like teamates, Also on lines 31 - 36 make sure to correctly path this 
+## For help
+*please refer to this video for help on relative pathways- https://www.youtube.com/watch?v=hxto_sRZsBg 
+ * please refer to this video for help on Creating folders & files using your terminal- https://www.youtube.com/watch?v=cllYCk-MYek
 
 ## Review
 
-You are required to submit BOTH of the following for review:
 
-* The URL of the functional, deployed application.
+## liscense
+MIT License
 
-* The URL of the GitHub repository. Give the repository a unique name and include a readme describing the project.
+Copyright (c) [2023] [Tyler Henderson Webster]
 
-- - -
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 © 2023 edX Boot Camps LLC. Confidential and Proprietary. All Rights Reserved.

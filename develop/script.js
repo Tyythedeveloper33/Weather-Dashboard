@@ -85,9 +85,12 @@ function searchCity() {
         console.log("Current-Day-humidity", currentWeatherData.main.humidity)
         console.log("Current-Day-wind", currentWeatherData.wind.speed)
         console.log("_____________________________________________________________");
-        
+       var currTemp  = currentWeatherData.main.temp
+       var currHum = currentWeatherData.main.humidity
+       var currWind = currentWeatherData.wind.speed
         clearResults() 
-        appendDataCurrent(currentDay, currentWeatherData.main.temp,currentWeatherData.main.humidity,currentWeatherData.wind.speed,cityName, )
+        appendDataCurrent(currentDay, currentWeatherData.main.temp,currentWeatherData.main.humidity,currentWeatherData.wind.speed,cityName )
+        appendClickedData(currentDay,currTemp,currHum,currentWeatherData.wind.speed,cityName )
          });
        
           //weather api
@@ -197,7 +200,7 @@ function searchCity() {
           
         appendDataForecast(tomorrow, averageTemperature, averageHumidity, averagewind, afterTomorrow,averageTemperature1,averageHumidity1, averagewind1, thirdDayAfterCurrent, averageTemperature2, averageHumidity2, averagewind2, forthDayAfterCurrent, averageTemperature3, averageHumidity3, averagewind3, fifthDayAfterCurrent, averageTemperature4, averageHumidity4, averagewind4);
           //code for for processing and displaying forecast data
-          showHistory();
+          showHistory(currentDay, averageTemperature,averageHumidity,averagewind);
         // refresh the search history display
         })
         .catch(error => {
@@ -218,7 +221,7 @@ function searchCity() {
        
   }
 //function to display the search history
-  function showHistory(stateCode,countryCode,limit,apiKey) {
+  function showHistory(stateCode,countryCode,limit,apiKey, currentDay, averageTemperature,averageHumidity,averagewind) {
 
 
     // We should CLEAR the existing data in our HISTORY CONTAINER
@@ -247,15 +250,12 @@ function searchCity() {
             var cityName = newButton.id ;
            e.preventDefault()
            buttonCity(cityName)
-            
+           clearResults()
+           
         })
-        // 4) we APPEND or add it to the DOM
-        searchHistory.append(newButton);
-      }  
-      
+searchHistory.append(newButton);
     }
-
-
+    }
 }
 showHistory()
 
@@ -279,6 +279,7 @@ function buttonCity(cityName){
       var cityDataa = Geodata[0];
       var Latitudee = cityDataa.lat;
       var longitudee = cityDataa.lon;
+     
 
     }
 
@@ -603,3 +604,4 @@ displayHumidity.appendChild(displaywind);
 // }
  //}
  //appendData()
+   
